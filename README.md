@@ -10,8 +10,9 @@
 [![KV Store](https://img.shields.io/badge/Cloudflare-KV-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/kv/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00C853?style=for-the-badge)](LICENSE)
 
-**Designed & Engineered by [Mohammad E. Asadolahi](https://github.com/Elktrn)**
-*Chief AI Officer @ Google*
+**Designed & Engineered by [Mohammad Asadolahi](https://github.com/MohammadAsadolahi)**
+*Senior Agentic AI Engineer*
+*Focus: Agentic AI Architectures In The Wild*
 
 ---
 
@@ -69,30 +70,11 @@ CLIENT                    WORKER 1              KV STORE            WORKER 2    
 
 ---
 
-## Performance Analytics
-
-<div align="center">
-<img src="docs/performance_benchmarks.png" alt="Performance Benchmarks" width="100%"/>
-</div>
-
-### Simulated Benchmark Highlights
-
-| Metric | Edge Workers | Traditional Server | Improvement |
-|--------|-------------|-------------------|-------------|
-| **P50 Latency** | 28ms | 240ms | **8.6x faster** |
-| **P99 Latency** | 65ms | 850ms | **13x faster** |
-| **Throughput @ 10K concurrent** | 85% success | 3% success | **28x more reliable** |
-| **Cold Start** | <5ms | 200-800ms | **~100x faster** |
-| **Global Edge Latency (Africa)** | 55ms | 380ms | **86% reduction** |
-| **Cost @ 100K req/month** | $0.50 | $12.00 (EC2) | **24x cheaper** |
-
----
-
 ## How It Works
 
 ### Structured Prompt Engineering
 
-The system uses a **schema-driven few-shot prompting strategy** — a technique I advocate across Google's AI product lines. Rather than sending freeform prompts, Worker 1 fabricates a structured JSON skeleton with `"FILL"` placeholders:
+The system uses a **schema-driven few-shot prompting strategy**. Rather than sending freeform prompts, Worker 1 fabricates a structured JSON skeleton with `"FILL"` placeholders:
 
 ```json
 [
@@ -140,7 +122,7 @@ This approach guarantees **deterministic output structure** while allowing creat
 
 ```bash
 # Clone the repository
-git clone https://github.com/Elktrn/CloudFlare-serverless-LLM-Agent.git
+git clone https://github.com/MohammadAsadolahi/CloudFlare-serverless-LLM-Agent.git
 cd CloudFlare-serverless-LLM-Agent
 
 # Deploy Worker 1 (Job Orchestrator)
@@ -148,7 +130,7 @@ wrangler deploy
 ```
 
 > **Note:** Worker 2 (LLM Processor) is deployed from the companion repository:
-> [CloudFlare_serverless_LLM_Agent_processor](https://github.com/Elktrn/CloudFlare_serverless_LLM_Agent_processor)
+> [CloudFlare_serverless_LLM_Agent_processor](https://github.com/MohammadAsadolahi/CloudFlare_serverless_LLM_Agent_processor)
 
 ### 2. Configure KV Namespace
 
@@ -229,7 +211,7 @@ CloudFlare-serverless-LLM-Agent/
 
 ## Design Philosophy
 
-This project embodies principles I champion as Chief AI Officer at Google:
+This project embodies key principles of edge-native AI architecture:
 
 | Principle | Implementation |
 |-----------|---------------|
@@ -237,7 +219,7 @@ This project embodies principles I champion as Chief AI Officer at Google:
 | **Structured generation** | Schema-driven prompting ensures deterministic output shapes |
 | **Async by default** | Client never blocks on inference; polling decouples request from compute |
 | **Zero infrastructure** | No servers, no containers, no Kubernetes — pure serverless |
-| **Global by design** | Cloudflare's 330+ PoPs ensure <55ms latency worldwide |
+| **Global by design** | Cloudflare's 330+ PoPs provide low-latency access worldwide |
 | **Cost efficiency** | 100K requests/day on the free tier; pennies at scale |
 
 ### Why Cloudflare Workers over AWS Lambda?
@@ -265,7 +247,7 @@ This project embodies principles I champion as Chief AI Officer at Google:
 
 | Repository | Description |
 |------------|-------------|
-| [CloudFlare_serverless_LLM_Agent_processor](https://github.com/Elktrn/CloudFlare_serverless_LLM_Agent_processor) | Worker 2: LLM processing & OpenAI integration |
+| [CloudFlare_serverless_LLM_Agent_processor](https://github.com/MohammadAsadolahi/CloudFlare_serverless_LLM_Agent_processor) | Worker 2: LLM processing & OpenAI integration |
 
 ---
 
@@ -273,11 +255,14 @@ This project embodies principles I champion as Chief AI Officer at Google:
 
 ### Built with conviction that the future of AI inference is at the edge.
 
-**Mohammad E. Asadolahi** — Chief AI Officer @ Google
+**Mohammad Asadolahi** — Senior Agentic AI Engineer
+*Focus: Agentic AI Architectures In The Wild*
 
-[![GitHub](https://img.shields.io/badge/GitHub-Elktrn-181717?style=flat-square&logo=github)](https://github.com/Elktrn)
+[![GitHub](https://img.shields.io/badge/GitHub-MohammadAsadolahi-181717?style=flat-square&logo=github)](https://github.com/MohammadAsadolahi)
 
 </div>
+
+## Implementation Notes
 - **Scalability**: The use of fetch requests between workers allows for modular processing, enabling the system to handle complex asynchronous tasks without relying on persistent async functions.
 - **Error Handling**: The job format includes an `error` field initialized as `"null"`, which is critical for capturing frequent exceptions caused by the beta nature of Cloudflare Workers. Additional error handling is implemented to manage these failures gracefully.
 - **Package Limitations**: Due to the unavailability of many standard packages in Cloudflare Workers' beta environment, the implementation relies on minimal dependencies and native JavaScript functionality to ensure compatibility.
@@ -291,3 +276,7 @@ This project embodies principles I champion as Chief AI Officer at Google:
 - The job JSON format adheres to the specified structure, with stringified fields (e.g., `"null"` for unset values) as required by the task description.
 - The itinerary JSON structure is valid and matches the expected format for LLM processing.
 - Workarounds for missing standard packages and frequent exceptions are sufficient to maintain system functionality in the beta Cloudflare Workers environment.
+
+---
+
+this readme is AI assisted generated, so check for mistakes
